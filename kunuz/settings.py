@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+    'knox',
     'news',
-    'homepage',
-    'aloqa'
+    'aloqa',
+    'account'
 ]
 
 REST_FRAMEWORK = {

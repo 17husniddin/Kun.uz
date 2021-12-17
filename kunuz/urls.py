@@ -30,13 +30,13 @@ Including another URLconf
 """
 
 from news.views import *
-from homepage.views import *
 from aloqa.views import *
 from django.contrib import admin
 from django.urls import path, include
-
+from account.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+from knox import views as knox_views
 
 from rest_framework.routers import DefaultRouter
 
@@ -49,8 +49,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 router = DefaultRouter()
 router.register('newspage', NewsViewSet)
 router.register('category', CategoryViewSet)
-router.register('homepage', HomepageViewSet)
 router.register('aloqa', AloqaViewSet)
+
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -69,6 +69,10 @@ urlpatterns = [
      path('admin/',admin.site.urls),
      path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
      path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+     path('register/', RegisterAPI.as_view(), name='register'),
+     path('api/login/', LoginAPI.as_view(), name='login'),
+     path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
+     path('api/logoutall/', knox_views.LogoutAllView.as_view(), name='logoutall')
     ]
 urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
