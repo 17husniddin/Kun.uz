@@ -11,8 +11,6 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-class CarPageNumberPaginations(PageNumberPagination):
-    page_size = 3
 
 
 class AloqaViewSet(viewsets.ModelViewSet):
